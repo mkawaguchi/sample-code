@@ -2,19 +2,30 @@
 <html lang="ja">
 	<head>
 		<meta charset="UTF-8" />
-		<title>CSS動的コンパイラ</title>
-		</head>
+		<title>動的スクリプトコンパイラ</title>
+		<style>
+			
+		</style>
+	</head>
 	<body>
 		<div id="global_body">
 			<form action="compile" method="post">
-				<textarea name="source" style="width:400px;height:320px;"></textarea><br />
-				<select name="compiler">
-					<option value="sass">SASS</option>
-					<option value="less">LESS</option>
-					<option value="javascript">Javascript</option>
-					<option value="javascript-map">Javascript(map)</option>
-				</select>
-				<input type="submit" value="コンパイル" />
+				<div>
+					<textarea name="source" style="width:400px;height:320px;"></textarea><br />
+				</div>
+				<div>
+					<select name="compiler">
+						<option value="sass">SASS</option>
+						<option value="less">LESS</option>
+						<option value="javascript">Javascript</option>
+						<option value="javascript-map">Javascript(map)</option>
+					</select>
+					<input type="submit" value="コンパイル" />
+				</div>
+				<div id="options-javascript-map" style="margin-top:8px;">
+					file : <input type="text" name="val_file" value="untitled.min.js" />
+					sources: <input type="text" name="val_sources" value="untitled.js" />
+				</div>
 			</form>
 		</div>
 	</body>

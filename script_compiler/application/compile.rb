@@ -12,6 +12,7 @@ JS_COMPILER = File.expand_path(File.dirname(__FILE__)+"/closure/v20140923/compil
 require "cgi"
 require "sass"
 require "tempfile"
+require "json"
 
 # SASSのコンパイル
 def compile_sass(source)
@@ -76,7 +77,7 @@ def compile_javascript(source)
 end
 
 # Javascriptのコンパイル(mapファイル生成)
-def compile_javascript_map(source)
+def compile_javascript_map(source,val_file,val_sources)
 	# テンポラリファイル作成
 	tmp =  Tempfile.new("js-compiler-")
 	tmp.close()
@@ -92,11 +93,18 @@ def compile_javascript_map(source)
 	
 	output = nil
 	begin
+		json_str = nil
 		IO.popen(cmd,"r+") do |fp|
 			fp.write(source)
 			fp.close_write
-			output = fp.read
+			json_str = fp.read
 		end
+		
+		data = JSON.parse(json_str)
+		data["file"] = val_file
+		data["sources"][0] = val_sources
+		
+		output = data.to_json
 	rescue e
 		# nop
 	end
@@ -121,13 +129,25 @@ def output_result(body,header,status)
 	print body
 end
 
+# パラメータ取得
+def take_param(cgi,key,default=nil)
+	if cgi.params.has_key?(key)
+		return cgi.params[key].join.to_s
+	end
+	return default
+end
+
 # POST:コンパイル実行
 def mode_post(cgi)
 	# ソース取得
-	source = cgi.params["source"].join.to_s
+	source = take_param(cgi,"source")
+	if source==nil
+		output_result("no input",{},400)
+		exit
+	end
 	
-	# モード取得
-	mode = cgi.params["compiler"].join.to_s
+	# コンパイラ指定取得
+	mode = take_param(cgi,"compiler")
 	
 	# コンパイル
 	result = case mode
@@ -138,9 +158,11 @@ def mode_post(cgi)
 	when "javascript"
 		compile_javascript(source)
 	when "javascript-map"
-		compile_javascript_map(source)
+		val_file    = take_param(cgi,"val_file","untitled.min.js")
+		val_sources = take_param(cgi,"val_sources","untitled.js")
+		compile_javascript_map(source,val_file,val_sources)
 	else
-		compile_sass(source)
+		output_result("invalid compiler",{},400)
 	end
 	
 	# 結果判定
