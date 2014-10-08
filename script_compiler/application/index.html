@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8" />
+		<title>CSS動的コンパイラ</title>
+		</head>
+	<body>
+		<div id="global_body">
+			<form action="compile" method="post">
+				<textarea name="source" style="width:400px;height:320px;"></textarea><br />
+				<select name="compiler">
+					<option value="sass">SASS</option>
+					<option value="less">LESS</option>
+					<option value="javascript">Javascript</option>
+					<option value="javascript-map">Javascript(map)</option>
+				</select>
+				<input type="submit" value="コンパイル" />
+			</form>
+		</div>
+	</body>
+</html>

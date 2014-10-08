@@ -1,0 +1,6 @@
+DirectoryIndex index.html
+AddHandler cgi-script .rb
+Options +ExecCGI
+RewriteEngine on
+RewriteRule ^compile$ compile.rb
+
