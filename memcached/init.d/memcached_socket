@@ -1,0 +1,112 @@
+#!/bin/bash
+#
+# Init file for memcached
+#
+# chkconfig: - 80 12
+# description: Distributed memory caching daemon (using UNIX DOMAIN SOCKET)
+#
+# processname: memcached
+# config: /etc/sysconfig/memcached_socket
+
+source /etc/rc.d/init.d/functions
+
+### Instance settings
+NAME="memcached_socket"
+
+### Default settings
+MAXCONN="1024"
+CACHESIZE="64"
+OPTIONS=""
+
+### Startup settings
+USER="memcached"
+DIR="/var/memcached"
+SOCK="$DIR/memcached.sock"
+SYSCONFIG="/etc/sysconfig/memcached_socket"
+
+### Read configuration
+[ -r "$SYSCONFIG" ] && source "$SYSCONFIG"
+
+RETVAL=0
+BIN="memcached"
+PID="$DIR/$NAME.pid"
+LOCK=/var/lock/subsys/$NAME
+
+start() {
+	echo -n $"Starting $NAME: "
+	
+	# create directory
+	if [ ! -e $DIR ]; then
+		mkdir $DIR
+		chown $USER:`id -g $USER` $DIR
+	fi
+	
+	# check process exists
+	if [[ -e $LOCK && -e $PID ]]; then
+		if checkpid `cat $PID` ; then
+			echo "already started."
+			exit 2
+		fi
+	fi
+	
+	# cleanup
+	rm -f $PID $LOCK
+	
+	# start
+	daemon $BIN -d -s $SOCK -a 777 -P $PID -u $USER -c $MAXCONN -m $CACHESIZE $OPTIONS
+	RETVAL=$?
+	echo
+	[ $RETVAL -eq 0 ] && touch $LOCK
+	return $RETVAL
+}
+
+stop() {
+	echo -n $"Stopping $NAME: "
+	killproc -p $PID
+	RETVAL=$?
+	echo
+	[ $RETVAL -eq 0 ] && rm -f $LOCK
+	[ -e $SOCK ] && rm -f $SOCK
+	return $RETVAL
+}
+
+restart() {
+	stop
+	start
+}
+
+reload() {
+	echo -n $"Reloading $desc ($NAME): "
+	killproc -p $PID -HUP
+	RETVAL=$?
+	echo
+	return $RETVAL
+}
+
+case "$1" in
+	start)
+		start
+		;;
+	stop)
+		stop
+		;;
+	restart)
+		restart
+		;;
+	condrestart)
+		[ -e $LOCK ] && restart
+		RETVAL=$?
+		;;
+	reload)
+		reload
+		;;
+	status)
+		status -p $PID $NAME
+		RETVAL=$?
+		;;
+	*)
+		echo $"Usage: $0 {start|stop|restart|condrestart|status}"
+		RETVAL=1
+esac
+
+exit $RETVAL
