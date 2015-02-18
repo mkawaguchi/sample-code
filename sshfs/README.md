@@ -7,11 +7,33 @@ SSHFS
 
 ### 事前準備
 
-決めておくこと
+概要
+- PUTTYgenをインストールする
+- PUTTYgenで鍵ペア(公開鍵と秘密鍵)を作成する
+  - 秘密鍵は他人に盗まれないよう厳重に保管すること。
+  - 公開鍵は他人に見られても良いのでメールで本文に貼り付けて送っても良い。
+- Dokan ライブラリをインストールする
+- Dokan SSHFSをインストールする
 
+決めておくこと
 - 秘密鍵のファイル名 ... sshfs-key.ppk
 - 公開鍵のファイル名 ... sshfs-key.pub
 - 秘密鍵のパスワード
+
+揃えておくべき情報
+- リモートサーバーの接続情報
+  - ホストアドレス
+  - ユーザー名
+  - ポート番号(デフォルトでは22)
+
+## ダウンロード
+
+PUTTYgen ... 鍵ペアの作成ツール
+- [ダウンロードページ](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html) "The latest release version"の puttygen.exe をダウンロードする
+- [参考ページ](http://www.tempest.jp/security/keygen.html) PuTTYgenの利用
+
+DokanライブラリとDokan SSHFS
+- [ダウンロードページ](http://dokan-dev.net/download/) 「Dokanライブラリ」と「Dokan SSHFS」をそれぞれダウンロードする
 
 ### 手順1 PuTTYgenで鍵ペアを作成する
 
@@ -32,9 +54,14 @@ SSHFS
 1. .sshディレクトリは chmodコマンドで属性を700にしておく。
 1. .ssh/authorized_keys ファイルも同様に属性を600にしておく。
 
-### 手順3 SSHFSでサーバーを登録する
+### 手順3 DokanライブラリとDokan SSHFSをインストールする
 
-1. SSHFS Managerを起動する。
+1. Dokanのダウンロードページからそれぞれのインストーラをダウンロードする
+2. インストーラを起動してインストールを実行する
+
+### 手順4 SSHFSでサーバーを登録する
+
+1. タスクトレイのSSHFSのアイコンを右クリックして、"Show Manager"をクリックし、SSHFS Managerを起動する。
 1. 左下の "+ Add" をクリック。
 1. "Drive Name"に任意の接続情報名を入力する。
 1. "Host", "Port", "UserName" を埋める。
@@ -44,7 +71,7 @@ SSHFS
 1. 以降の設定はお好みで。
 1. "Save" をクリックして入力内容を保存する。
 
-### 手順4 接続する
+### 手順5 接続する
 
 1. SSHFS Managerを起動する。
 1. "Mount" をクリックして接続する。
