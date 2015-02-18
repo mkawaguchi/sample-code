@@ -33,7 +33,7 @@ PuTTYgen ... 鍵ペアの作成ツール
 - [参考ページ](http://www.tempest.jp/security/keygen.html) PuTTYgenの利用
 
 Dokanライブラリ
-- [ダウンロードページ](http://dokan-dev.net/download/) 「Dokanライブラリ」と「Dokan SSHFS」をそれぞれダウンロードする
+- [ダウンロードページ](http://dokan-dev.net/download/) 「Dokanライブラリ」をダウンロードする
 
 Win-sshfs
 - [ダウンロードページ](https://code.google.com/p/win-sshfs/downloads/list) win-sshfs-0.0.1.5-setup.exeをダウンロードする
