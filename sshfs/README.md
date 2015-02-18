@@ -3,7 +3,7 @@ SSHFS
 
 ## 概要
 
-リモートサーバー(Linux)のディレクトリをDokan SSHFSを使ってWindowsのドライブとしてマウントする。
+リモートサーバー(Linux)のディレクトリをDokan+Win-sshfsを使ってWindowsのドライブとしてマウントする。
 
 ### 事前準備
 
