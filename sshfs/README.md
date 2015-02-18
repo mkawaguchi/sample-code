@@ -13,7 +13,7 @@ SSHFS
   - 秘密鍵は他人に盗まれないよう厳重に保管すること。
   - 公開鍵は他人に見られても良いのでメールで本文に貼り付けて送っても良い。
 - Dokan ライブラリをインストールする
-- Dokan SSHFSをインストールする
+- Win-sshfsをインストールする
 
 決めておくこと
 - 秘密鍵のファイル名 ... sshfs-key.ppk
@@ -32,8 +32,11 @@ PuTTYgen ... 鍵ペアの作成ツール
 - [ダウンロードページ](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html) "The latest release version"の puttygen.exe をダウンロードする
 - [参考ページ](http://www.tempest.jp/security/keygen.html) PuTTYgenの利用
 
-DokanライブラリとDokan SSHFS
+Dokanライブラリ
 - [ダウンロードページ](http://dokan-dev.net/download/) 「Dokanライブラリ」と「Dokan SSHFS」をそれぞれダウンロードする
+
+Win-sshfs
+- [ダウンロードページ](https://code.google.com/p/win-sshfs/downloads/list) win-sshfs-0.0.1.5-setup.exeをダウンロードする
 
 ## 導入手順
 
@@ -64,14 +67,16 @@ DokanライブラリとDokan SSHFS
 
 1. 公開鍵をメールで提出する。公開鍵ファイルの中身を本文に直接貼り付けても良い。
 
-### 手順3 DokanライブラリとDokan SSHFSをインストールする
+### 手順3 DokanライブラリとWin-sshfsをインストールする
 
-1. Dokanのダウンロードページからそれぞれのインストーラをダウンロードする
-2. インストーラを起動してインストールを実行する
+1. DokanのダウンロードページからDokanライブラリのインストーラをダウンロードする
+1. インストーラを起動してDokanライブラリのインストールを実行する
+1. Win-sshfsのダウンロードページからインストーラをダウンロードする
+1. インストーラを起動してWin-sshfsのインストールを実行する
 
-### 手順4 SSHFSでサーバーを登録する
+### 手順4 Win-sshfsでサーバーを登録する
 
-1. タスクトレイのSSHFSのアイコンを右クリックして、"Show Manager"をクリックし、SSHFS Managerを起動する。
+1. タスクトレイのWin-sshfsのアイコンを右クリックして、"Show Manager"をクリックし、Sshfs Managerを起動する。
 1. 左下の "+ Add" をクリック。
 1. "Drive Name"に任意の接続情報名を入力する。
 1. "Host", "Port", "UserName" を埋める。
