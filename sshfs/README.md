@@ -35,6 +35,8 @@ PuTTYgen ... 鍵ペアの作成ツール
 DokanライブラリとDokan SSHFS
 - [ダウンロードページ](http://dokan-dev.net/download/) 「Dokanライブラリ」と「Dokan SSHFS」をそれぞれダウンロードする
 
+## 導入手順
+
 ### 手順1 PuTTYgenで鍵ペアを作成する
 
 1. PuTTYgenを起動する
